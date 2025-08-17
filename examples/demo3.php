@@ -2,7 +2,7 @@
 
     require 'common.php';
 
-    $option1 = new \Coco\matomo\Option();
+    $option1 = new \Coco\matomo\Pv();
     $option1->setSiteId(555);
     $option1->setSessionId('666666');
     $option1->setPageUrl('pageUrl');

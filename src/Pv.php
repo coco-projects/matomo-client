@@ -6,7 +6,7 @@
     use \Exception;
     use Throwable;
 
-    class Option
+    class Pv
     {
         // https://developer.matomo.org/api-reference/tracking-api
         // 下面的参数只作为写代码参考，构造参数用不上
@@ -23,7 +23,7 @@
         private string $apiv        = '1';
 
 
-        //Optional User info
+        //Pval User info
         private string $urlref = '';
         private string $res    = '';
         private string $h      = '';
@@ -1172,7 +1172,7 @@
          * global.ini.php), they will extend the existing visit and the current last action for the visit. If after the
          * standard visit length, ping requests will create a new visit using the last action in the last known visit.
          *
-         * @return Option
+         * @return Pv
          */
         public function getUrlPing(): static
         {

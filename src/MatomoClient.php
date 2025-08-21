@@ -53,7 +53,6 @@
             return static::$ins[$hash];
         }
 
-
         public function setChunkSize(int $chunkSize): static
         {
             $this->chunkSize = $chunkSize;
@@ -141,11 +140,6 @@
             return true;
         }
 
-        private static function makeHash(string $apiUrl, string $token, string $siteId): string
-        {
-            return md5($apiUrl . $token . $siteId);
-        }
-
         private function apiEndpoint(): string
         {
             return $this->apiUrl . '/matomo.php';
@@ -154,6 +148,11 @@
         private function restoreStatus(): void
         {
             $this->uvs = [];
+        }
+
+        private static function makeHash(string $apiUrl, string $token, string $siteId): string
+        {
+            return md5($apiUrl . $token . $siteId);
         }
 
     }

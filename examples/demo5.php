@@ -15,7 +15,9 @@
     $pv1 = new \Coco\matomo\Pv();
     $pv1->setPageUrl('http://dev6080/archives/1');
     $pv1->setLocalTime('12:33:32');
-//    $pv1->setForceVisitDateTime('2025-8-02 23:33:31');
+
+    $pv1->setForceVisitDateTime('2025-12-02 23:33:31');
+
     $pv1->setCustomTrackingParameter('bw_bytes', 23);
     $pv1->setCustomVariable(3, 'languageCode', 'zh', 'visit');
     $pv1->setCustomVariable(1, 'tld', 456, 'page');
@@ -59,7 +61,7 @@
         $pv7,
     ];
 
-    $uv = new \Coco\matomo\Uv();
+    $uv = new \Coco\matomo\Uv('2025-12-02 23:33:31');
     $uv->setSession($session);
     $uv->importPvs($pvs);
 

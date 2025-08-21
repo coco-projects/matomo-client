@@ -11,135 +11,133 @@
         // https://developer.matomo.org/api-reference/tracking-api
         // 下面的参数只作为写代码参考，构造参数用不上
         //Required parameters
-        private int    $idsite;
-        private string $rec = '1';
-
+//        private int    $idsite;
+//        private string $rec = '1';
 
         //Recommended parameters
-        private string $action_name = '';
-        private string $url         = '';
-        private string $_id         = '';
-        private string $rand        = '';
-        private string $apiv        = '1';
-
+//        private string $action_name = '';
+//        private string $url         = '';
+//        private string $_id         = '';
+//        private string $rand        = '';
+//        private string $apiv        = '1';
 
         //Pval User info
-        private string $urlref = '';
-        private string $res    = '';
-        private string $h      = '';
-        private string $m      = '';
-        private string $s      = '';
-
-        private string $fla   = '0';
-        private string $java  = '0';
-        private string $qt    = '0';
-        private string $realp = '0';
-        private string $pdf   = '0';
-        private string $wma   = '0';
-        private string $ag    = '0';
-
-        private string $gears     = '0';
-        private string $dir       = '0';
-        private string $cookie    = '0';
-        private string $ua        = '';
-        private string $uadata    = '';
-        private string $lang      = '';
-        private string $uid       = '';
-        private string $cid       = '';
-        private string $new_visit = '0';
-        private string $_cvar     = '';
+//        private string $urlref = '';
+//        private string $res    = '';
+//        private string $h      = '';
+//        private string $m      = '';
+//        private string $s      = '';
+//
+//        private string $fla   = '0';
+//        private string $java  = '0';
+//        private string $qt    = '0';
+//        private string $realp = '0';
+//        private string $pdf   = '0';
+//        private string $wma   = '0';
+//        private string $ag    = '0';
+//
+//        private string $gears     = '0';
+//        private string $dir       = '0';
+//        private string $cookie    = '0';
+//        private string $ua        = '';
+//        private string $uadata    = '';
+//        private string $lang      = '';
+//        private string $uid       = '';
+//        private string $cid       = '';
+//        private string $new_visit = '0';
+//        private string $_cvar     = '';
 
         //Optional Acquisition Channel Attribution
-        private string $_rcn = '';
-        private string $_rck = '';
+//        private string $_rcn = '';
+//        private string $_rck = '';
 
         //Optional Action info (measure Page view, Outlink, Download, Site search)
-        private string $cvar         = '';
-        private string $link         = '';
-        private string $download     = '';
-        private string $search       = '';
-        private string $search_cat   = '';
-        private string $search_count = '';
-        private string $pv_id        = '';
-        private string $idgoal       = '';
-        private string $revenue      = '';
-        private string $cs           = '';
-        private string $ca           = '';
+//        private string $cvar         = '';
+//        private string $link         = '';
+//        private string $download     = '';
+//        private string $search       = '';
+//        private string $search_cat   = '';
+//        private string $search_count = '';
+//        private string $pv_id        = '';
+//        private string $idgoal       = '';
+//        private string $revenue      = '';
+//        private string $cs           = '';
+//        private string $ca           = '';
 
         //Optional Page Performance info
-        private string $pf_net = '';
-        private string $pf_srv = '';
-        private string $pf_tfr = '';
-        private string $pf_dm1 = '';
-        private string $pf_dm2 = '';
-        private string $pf_onl = '';
+//        private string $pf_net = '';
+//        private string $pf_srv = '';
+//        private string $pf_tfr = '';
+//        private string $pf_dm1 = '';
+//        private string $pf_dm2 = '';
+//        private string $pf_onl = '';
 
         //Optional Event Tracking info
-        private string $e_c = '';
-        private string $e_a = '';
-        private string $e_n = '';
-        private string $e_v = '';
+//        private string $e_c = '';
+//        private string $e_a = '';
+//        private string $e_n = '';
+//        private string $e_v = '';
 
         //Optional Content Tracking info
-        private string $c_n = '';
-        private string $c_p = '';
-        private string $c_t = '';
-        private string $c_i = '';
+//        private string $c_n = '';
+//        private string $c_p = '';
+//        private string $c_t = '';
+//        private string $c_i = '';
 
         //Optional Ecommerce info
-        private string $ec_id    = '';
-        private string $ec_items = '';
-        private string $ec_st    = '';
-        private string $ec_tx    = '';
-        private string $ec_sh    = '';
-        private string $ec_dt    = '';
+//        private string $ec_id    = '';
+//        private string $ec_items = '';
+//        private string $ec_st    = '';
+//        private string $ec_tx    = '';
+//        private string $ec_sh    = '';
+//        private string $ec_dt    = '';
         //Ecommerce Product View Tracking
-        private string $_pkc = '';
-        private string $_pkp = '';
-        private string $_pks = '';
-        private string $_pkn = '';
+//        private string $_pkc = '';
+//        private string $_pkp = '';
+//        private string $_pks = '';
+//        private string $_pkn = '';
 
         //Other parameters (require authentication via token_auth)
-        private string $token_auth = '';
-        private string $cip        = '';
-        private string $cdt        = '';
-        private string $country    = '';
-        private string $region     = '';
-        private string $city       = '';
-        private string $lat        = '';
-        private string $long       = '';
+//        private string $token_auth = '';
+//        private string $cip        = '';
+//        private string $cdt        = '';
+        private string $country = '';
+        private string $region  = '';
+        private string $city    = '';
+        private string $lat     = '';
+        private string $long    = '';
 
         //Media Analytics parameters
-        private string $ma_id  = '';
-        private string $ma_ti  = '';
-        private string $ma_re  = '';
-        private string $ma_mt  = '';
-        private string $ma_pn  = '';
-        private string $ma_st  = '';
-        private string $ma_le  = '';
-        private string $ma_ps  = '';
-        private string $ma_ttp = '';
-        private string $ma_w   = '';
-        private string $ma_h   = '';
-        private string $ma_fs  = '';
-        private string $ma_se  = '';
+//        private string $ma_id  = '';
+//        private string $ma_ti  = '';
+//        private string $ma_re  = '';
+//        private string $ma_mt  = '';
+//        private string $ma_pn  = '';
+//        private string $ma_st  = '';
+//        private string $ma_le  = '';
+//        private string $ma_ps  = '';
+//        private string $ma_ttp = '';
+//        private string $ma_w   = '';
+//        private string $ma_h   = '';
+//        private string $ma_fs  = '';
+//        private string $ma_se  = '';
 
         //Tracking HTTP API Reference
-        private string $cra    = '';
-        private string $cra_st = '';
-        private string $cra_ct = '';
-        private string $cra_tp = '';
-        private string $cra_ru = '';
-        private string $cra_rl = '';
-        private string $cra_rc = '';
+//        private string $cra    = '';
+//        private string $cra_st = '';
+//        private string $cra_ct = '';
+//        private string $cra_tp = '';
+//        private string $cra_ru = '';
+//        private string $cra_rl = '';
+//        private string $cra_rc = '';
 
         //Queued Tracking parameters
-        private string $queuedtracking = '';
-        private string $send_image     = '';
-        private string $ping           = '';
+//        private string $queuedtracking = '';
+//        private string $send_image     = '';
+//        private string $ping           = '';
 
         //Tracking Bots
-        private string $bots = '';
+//        private string $bots = '';
 
         /*--------------------------------------------------------------------------------*/
 
@@ -247,6 +245,14 @@
             return $this;
         }
 
+        /**
+         * @return string
+         */
+        public function getForcedDatetime(): string
+        {
+            return $this->forcedDatetime;
+        }
+
         /*--------------------------------------------------------------------------------*/
 
         public function setPageCharset(string $charset): static
@@ -270,16 +276,16 @@
          *
          * Allowed only for Admin/Super User, must be used along with setTokenAuth()
          *
-         * @param string $dateTime Date with the format 'Y-m-d H:i:s', or a UNIX timestamp.
+         * @param string $utcTime  Date with the format 'Y-m-d H:i:s', or a UNIX timestamp.
          *                         If the datetime is older than one day (default value for
          *                         tracking_requests_require_authentication_when_custom_timestamp_newer_than), then you
          *                         must call setTokenAuth() with a valid Admin/Super user token.
          *
          * @return $this
          */
-        public function setForceVisitDateTime(string $dateTime): static
+        public function setForceVisitDateTime(string $prcTime): static
         {
-            $this->forcedDatetime = $dateTime;
+            $this->forcedDatetime = $prcTime; // 输出最终的时间;
 
             return $this;
         }
@@ -1201,7 +1207,9 @@
 
             if (!empty($this->forcedDatetime))
             {
-                $this->setTrackerData('cdt', $this->forcedDatetime);
+                $utcTime = static::prcTimeToUtc($this->forcedDatetime);
+
+                $this->setTrackerData('cdt', $utcTime);
             }
 
             if ($this->forcedNewVisit)
@@ -1366,6 +1374,27 @@
         public static function getUserIdHashed($id): string
         {
             return substr(sha1($id), 0, 16);
+        }
+
+
+        public static function prcTimeToUtc(string $dateTime): string
+        {
+            try
+            {
+                // 创建一个 DateTime 对象，指定时区为 PRC
+                $prcDateTime = new \DateTime($dateTime, new \DateTimeZone("Asia/Shanghai"));
+
+                // 转换为 UTC
+                $prcDateTime->setTimezone(new \DateTimeZone("UTC"));
+
+                // 格式化并返回 UTC 时间
+                return $prcDateTime->format('Y-m-d H:i:s'); // 返回格式为 YYYY-MM-DD HH:MM:SS
+            }
+            catch (Exception $e)
+            {
+                // 捕获异常并返回错误信息
+                return "Invalid date format or other error: " . $e->getMessage();
+            }
         }
 
     }

@@ -7,6 +7,37 @@
         private array   $pvs     = [];
         public ?Session $session = null;
 
+        public function __construct(public string $viewTime)
+        {
+
+        }
+
+        public function getLastViewTime(): string
+        {
+            $viewTime = [];
+            foreach ($this->pvs as $k => $pv)
+            {
+                $viewTime[] = strtotime($pv->getForcedDatetime());
+            }
+
+            return date('Y-m-d H:i:s', max($viewTime));
+        }
+
+        public function getPvs(): array
+        {
+            return $this->pvs;
+        }
+
+        public function getPvCount(): ?int
+        {
+            return count($this->pvs);
+        }
+
+        public function getViewTime(): string
+        {
+            return $this->viewTime;
+        }
+
         public function setSession(?Session $session): static
         {
             $this->session = $session;
@@ -49,6 +80,11 @@
             }
 
             return $requests;
+        }
+
+        public function getSessionId(): string
+        {
+            return $this->session->getId();
         }
     }
 

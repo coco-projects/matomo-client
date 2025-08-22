@@ -119,7 +119,7 @@
                 $ins->setSuccessCallback(function(string $contents, Downloader $_this, $response, $index) {
                     $requestInfo = $_this->getRequestInfoByIndex($index);
 
-//                    $_this->logInfo($contents);
+                    $_this->logInfo($contents);
                 });
 
                 $ins->setErrorCallback(function($e, Downloader $_this, $index) {

@@ -4,7 +4,7 @@
 
     \Coco\matomo\Session::setCachePath('../insCache');
     
-    $matomoSiteId = 10;
+    $matomoSiteId = 1;
     $matomoUrl    = "http://dev6058/";
-    $matomoToken = "28b96e44af9997f60808c4cafe652ace";
+    $matomoToken = "c5bb885c94da01883e26573827c63874";
 

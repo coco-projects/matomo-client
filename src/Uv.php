@@ -82,6 +82,26 @@
             return $requests;
         }
 
+        public function makeDataPair(int $siteId): array
+        {
+            $requests = [];
+
+            foreach ($this->pvs as $pv)
+            {
+                $pv->setSiteId($siteId);
+
+                $res = $this->session->getResolution();
+                $pv->setResolution($res[0], $res[1]);
+                $pv->setUserAgent($this->session->getUserAgent());
+                $pv->setSessionId($this->session->getId());
+                $pv->setIp($this->session->getIp());
+
+                $requests[] = $pv->getTrackerDataArray();
+            }
+
+            return $requests;
+        }
+
         public function getSessionId(): string
         {
             return $this->session->getId();

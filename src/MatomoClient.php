@@ -2,9 +2,7 @@
 
     namespace Coco\matomo;
 
-    use Coco\magicAccess\MagicMethod;
-    use Coco\simplePageDownloader\Downloader;
-    use \Exception;
+    use Coco\logger\Logger;
 
     // token 的使用讲究
     // How do I fix the tracking failure ‘Request was not authenticated but should have’
@@ -19,38 +17,27 @@
 
     class MatomoClient
     {
-        private array       $uvs           = [];
-        private int         $chunkSize     = 100;
-        private static bool $enableEchoLog = false;
+        use Logger;
 
-        private static array $ins = [];
+        protected array $uvs       = [];
+        protected int   $chunkSize = 100;
 
-        private function __construct(public string $apiUrl, public string $token, public int $siteId)
+        protected static string $logNamespace  = 'matomo-log';
+        protected static bool   $enableEchoLog = false;
+
+        public function __construct(public int $siteId)
         {
-            Downloader::initClientConfig([
-                'timeout' => 60.0,
-                'verify'  => false,
-                'debug'   => false,
-            ]);
-        }
-
-        public static function enableEchoLog($enable = true): void
-        {
-            static::$enableEchoLog = $enable;
-        }
-
-        public static function getClient(string $apiUrl, string $token, int $siteId): static
-        {
-            $apiUrl = rtrim($apiUrl, '/');
-
-            $hash = static::makeHash($apiUrl, $token, $siteId);
-
-            if (!isset(static::$ins[$hash]))
+            if (static::$enableEchoLog)
             {
-                static::$ins[$hash] = new static($apiUrl, $token, $siteId);
+                $this->setStandardLogger(static::$logNamespace);
+                $this->addStdoutHandler(static::getStandardFormatter());
             }
+        }
 
-            return static::$ins[$hash];
+        public static function initLogger(string $logNamespace, bool $enableEchoLog = false): void
+        {
+            static::$logNamespace  = $logNamespace;
+            static::$enableEchoLog = $enableEchoLog;
         }
 
         public function setChunkSize(int $chunkSize): static
@@ -75,85 +62,27 @@
             return $this;
         }
 
-        private function makeRequests(): array
+        public function getUvsCount(): ?int
         {
-            $requests = [];
-
-            foreach ($this->uvs as $uv)
-            {
-                $requests = array_merge($requests, $uv->makeRequests($this->siteId));
-            }
-
-            return $requests;
+            return count($this->uvs);
         }
 
-        /*--------------------------------------------------------------------------------*/
-
-        public function sendRequest(): bool
-        {
-            Downloader::initLogger('matomo_log', static::$enableEchoLog, !true);
-
-            $ins = Downloader::ins();
-            $ins->setCachePath('../downloadCache');
-
-            $requests = $this->makeRequests();
-
-            $requestsChunk = array_chunk($requests, $this->chunkSize);
-
-            $chunkCount    = count($requestsChunk);
-            $requestsCount = count($requests);
-
-            foreach ($requestsChunk as $k => $request)
-            {
-                $data = [
-                    "requests"   => $request,
-                    'token_auth' => $this->token,
-                ];
-
-                $ins->setEnableCache(false);
-                $ins->addBatchRequest($this->apiEndpoint(), 'post', [
-                    'User-Agent' => "Mozilla/5.0 (Linux; Android 9; STK-AL00 Build/HUAWEISTK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/76.0.3809.89 Mobile Safari/537.36 T7/11.20 SP-engine/2.16.0 baiduboxapp/11.20.0.14 (Baidu; P1 9) NABar/1.0",
-                    'body'       => json_encode($data, 256),
-                ]);
-
-                $ins->setSuccessCallback(function(string $contents, Downloader $_this, $response, $index) {
-                    $requestInfo = $_this->getRequestInfoByIndex($index);
-
-                    $_this->logInfo($contents);
-                });
-
-                $ins->setErrorCallback(function($e, Downloader $_this, $index) {
-                    $_this->logInfo('出错：' . $e->getMessage());
-                });
-
-                $ins->setOnDoneCallback(function(Downloader $_this) {
-                    $_this->logInfo('done');
-                });
-
-                $ins->logInfo('pv发送中：' . (($k * $this->chunkSize) + 1) . '-' . (($k + 1) * $this->chunkSize) . ',共：' . $requestsCount);
-                $ins->send();
-                $ins->logInfo('pv发送成功');
-            }
-
-            $this->restoreStatus();
-
-            return true;
-        }
-
-        private function apiEndpoint(): string
-        {
-            return $this->apiUrl . '/matomo.php';
-        }
-
-        private function restoreStatus(): void
+        protected function restoreStatus(): void
         {
             $this->uvs = [];
         }
 
-        private static function makeHash(string $apiUrl, string $token, string $siteId): string
+        public function eachChunks(callable $callback): void
         {
-            return md5($apiUrl . $token . $siteId);
-        }
+            $uvsChunks = array_chunk($this->uvs, $this->chunkSize);
 
+            foreach ($uvsChunks as $k => $uvsChunk)
+            {
+                call_user_func_array($callback, [
+                    $uvsChunk,
+                    $k,
+                ]);
+            }
+        }
     }
 

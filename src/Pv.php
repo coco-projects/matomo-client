@@ -169,7 +169,6 @@
         private string $ip;
         private string $userId;
 
-
         private int $localHour;
         private int $localMinute;
         private int $localSecond;
@@ -207,7 +206,7 @@
 
         protected function setTrackerData(string $key, string|int $value): static
         {
-            $this->trackerData[$key] = urlencode($value);
+            $this->trackerData[$key] = $value;
 
             return $this;
         }
@@ -410,7 +409,6 @@
             return $this;
         }
 
-
         /**
          * Sets Visit Custom Variable.
          * See https://matomo.org/docs/custom-variables/
@@ -492,7 +490,6 @@
             return [];
         }
 
-
         /**
          * Sets a specific custom dimension
          *
@@ -507,7 +504,6 @@
 
             return $this;
         }
-
 
         /**
          * Returns the value of the custom dimension with the given id
@@ -547,7 +543,6 @@
 
             return $this;
         }
-
 
         /**
          * Sets the Browser language. Used to guess visitor countries when GeoIP is not enabled
@@ -731,7 +726,6 @@
             return $this;
         }
 
-
         /*--------------------------------------------------------------------------------*/
 
         /**
@@ -826,7 +820,6 @@
             return $this;
         }
 
-
         /**
          * Tracks a content impression
          *
@@ -840,6 +833,7 @@
          */
         public function getUrlTrackContentImpression(string $contentName, string $contentPiece = 'Unknown', bool|string $contentTarget = false): static
         {
+
             if (strlen($contentName) == 0)
             {
                 throw new Exception("You must specify a content name");
@@ -873,6 +867,7 @@
          */
         public function getUrlTrackEvent(string $category, string $action, bool|string $name = false, float|bool $value = false): static
         {
+
             if (strlen($category) == 0)
             {
                 throw new Exception("You must specify an Event Category name (Music, Videos, Games...).");
@@ -905,6 +900,7 @@
          */
         public function getUrlTrackPageView(string $documentTitle): static
         {
+
             if (strlen($documentTitle) > 0)
             {
                 $this->setTrackerData('action_name', $documentTitle);
@@ -966,6 +962,7 @@
          */
         public function getUrlTrackSiteSearch(string $keyword, string $engine = '', bool|int $countResults = false): static
         {
+
             $this->setTrackerData('search', $keyword);
             if (strlen($engine) > 0)
             {
@@ -989,6 +986,7 @@
          */
         public function getUrlTrackGoal(int $idGoal, float $revenue = 0.0): static
         {
+
             $this->setTrackerData('idgoal', $idGoal);
             if (!empty($revenue))
             {
@@ -1008,6 +1006,7 @@
          */
         public function getUrlTrackAction(string $actionUrl, string $actionType): static
         {
+
             $this->setTrackerData($actionType, $actionUrl);
 
             return $this;
@@ -1084,6 +1083,7 @@
          */
         public function getUrlTrackCrash(string $message, string $type = null, $category = null, $stack = null, $location = null, $line = null, $column = null): static
         {
+
             $this->setTrackerData('ca', 1);
             $this->setTrackerData('cra', $message);
 
@@ -1182,6 +1182,7 @@
          */
         public function getUrlPing(): static
         {
+
             $this->setTrackerData('ping', 1);
 
             return $this;
@@ -1189,7 +1190,7 @@
 
         /*--------------------------------------------------------------------------------*/
 
-        public function makeUrl(): string
+        protected function initBaseTrackerData(): static
         {
             $this->setTrackerData('idsite', $this->siteId);
             $this->setTrackerData('_id', $this->sessionId);
@@ -1339,10 +1340,27 @@
             $this->importTrackerData($this->customDimensions);
             $this->importTrackerData($this->ecommerceView);
 
+            return $this;
+        }
+
+        /**
+         * @return array
+         */
+        public function getTrackerDataArray(): array
+        {
+            $this->initBaseTrackerData();
+
+            return $this->trackerData;
+        }
+
+        public function makeUrl(): string
+        {
+            $trackerData = $this->getTrackerDataArray();
+
             $data = [];
-            foreach ($this->trackerData as $k => $v)
+            foreach ($trackerData as $k => $v)
             {
-                $data[] = $k . '=' . $v;
+                $data[] = $k . '=' . urlencode($v);
             }
 
             return '?' . implode('&', $data);
@@ -1375,7 +1393,6 @@
         {
             return substr(sha1($id), 0, 16);
         }
-
 
         public static function prcTimeToUtc(string $dateTime): string
         {

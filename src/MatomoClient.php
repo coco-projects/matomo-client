@@ -20,7 +20,7 @@
         use Logger;
 
         protected array $uvs       = [];
-        protected int   $chunkSize = 100;
+        public int   $chunkSize = 100;
 
         protected static string $logNamespace  = 'matomo-log';
         protected static bool   $enableEchoLog = false;

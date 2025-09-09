@@ -9,7 +9,7 @@
 
     MatomoWebApiClient::initLogger('matomo_loggg', true);
 
-    $client = MatomoWebApiClient::getClient($matomoUrl, $matomoToken, $matomoSiteId);
+    $client = MatomoWebApiClient::getClient($apiUrl, $matomoToken, $matomoSiteId);
 
     $session = Session::getInsById('f4927f8804dd59bf');
     $session = Session::getInsById('6c9c0991a97ad81d');

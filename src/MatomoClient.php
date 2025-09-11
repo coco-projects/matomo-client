@@ -76,13 +76,15 @@
         {
             $uvsChunks = array_chunk($this->uvs, $this->chunkSize);
 
-            foreach ($uvsChunks as $k => $uvsChunk)
+            foreach ($uvsChunks as $uvsChunksKey => $uvsChunk)
             {
                 call_user_func_array($callback, [
                     $uvsChunk,
-                    $k,
+                    $uvsChunksKey,
                 ]);
             }
+
+            $this->restoreStatus();
         }
     }
 
